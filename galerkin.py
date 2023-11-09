@@ -35,7 +35,7 @@ class FunctionSpace:
 
     @property
     def reference_domain(self):
-        return (-1,1) # update this?
+        return (-1,1) 
 
     @property
     def domain_factor(self):
@@ -349,12 +349,12 @@ class NeumannChebyshev(Composite, Chebyshev):
         self.B = Neumann(bc, domain, self.reference_domain)
         alpha = np.zeros(N+1)
         for i in range(N+1):
-            alpha[i] = -i**2/(i+2)**2 
+            alpha[i] = -(i/(i+2))**2 
         self.S = sparse.diags((1,alpha),(0,2), shape=(N+1, N+3), format='csr') 
 
     def basis_function(self, j, sympy=False): 
         if sympy: 
-            return  sp.cos(j*sp.acos(x))- (j**2/(j+2)**2)*sp.cos((j+2)*sp.acos(x))
+            return  sp.cos(j*sp.acos(x))- (j/(j+2))**2*sp.cos((j+2)*sp.acos(x))
         return Cheb.basis(j) - ((j/(j+2))**2)*Cheb.basis(j+2)
 
 
